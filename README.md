@@ -12,10 +12,10 @@ these drawings are stored as a list of list. It stores strokes as a list and wit
 
  Also note that Unlike image files used on typical neural network image prediction model, drawings from quickdraw contain 1 or 2 more additional dimensions:
 
-  typical image file      |     quickdraw drawing
-:------------------------:| :-----------------------:
-2D (X,Y) or 3D (X,Y,color)|    4D(X,Y,time,stroke)
-      an image            |   how users drew an image
+|  typical image file      |     quickdraw drawing    |
+|:------------------------:| :-----------------------:|
+|2D (X,Y) or 3D (X,Y,color)|    4D(X,Y,time,stroke)   |
+|      an image            |   how users drew an image|
 
 
 With this dataset I am planning to run neural network to make a prediction model of categories.
