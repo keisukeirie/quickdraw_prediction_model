@@ -18,6 +18,7 @@ to answer these questions, I prepared 2 prediction models
 ## Results
 
 **model Accuracy**  
+
 |                 |  image recognition  |   Country prediction   |
 |:--------------: | :------------------:|:----------------------:|
 |    CNN model    |        88.1%        |           62.7%        |
