@@ -1,5 +1,6 @@
 # quickdraw_prediction_model
-this is my repository for the quick draw prediction model project
+this is my repository for the quick draw prediction model project  
+_last updated: 6/27/2017_  
 
 ## Introduction:
 
@@ -22,7 +23,7 @@ to answer these questions, I prepared 2 prediction models
 |                 |  image recognition  |   Country prediction   |
 |:--------------: | :------------------:|:----------------------:|
 |    CNN model    |        88.1%        |           62.7%        |
-|  XGBoost model  |        79.5%        |           43.8%        |
+|  XGBoost model  |        79.1%        |           43.8%        |
 
 
 ## Data used:
@@ -85,12 +86,12 @@ country prediction:
  
 **image recognition model:**  
 (max_depth=1, n_estimators=5000, learning_rate=0.25)  
-Highest accuracy (6/27/2017): percent
+Highest accuracy (6/27/2017): 79.1222222222 percent
   
   
-
 **country prediction model:**  
 (max_depth=1, n_estimators=1000, learning_rate=0.2)  
 Highest accuracy (6/27/2017): 43.7979539642 percent  
   
   
+#### 2. Convolusion Neural Network Model  
