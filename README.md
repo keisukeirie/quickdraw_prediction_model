@@ -16,6 +16,22 @@ to answer these questions, I prepared 2 prediction models
 1. XGBoost ensemble method model
 2. Convolusional Neural Network model
 
+## Instructions
+
+python folder:  
++ contains 3 python files  
+  - feature_engineering_func.py:  
+    + has python codes to set up json raw file into data that could be used for CNN and ensemble methods
+  - CNN_func.py
+    + has python codes to run CNN for image recognitions and country prediction
+  - ensemble_method_func.py
+    + has python codes to run XGboost ensemble method algorithm for image recognitions and country prediction
+   
+Procedure.ipynb  
++ Jupyter notebook that runs python codes above. note that there is no data stored in this repo.
+
+
+
 ## Results
 
 **model Accuracy**  
@@ -73,7 +89,8 @@ image recognition:
 
 country prediction:  
 [US, BR, RU, KR]
-
+  
+-----------------
 #### 1. XGBOOST
  Ran codes that creates 399 new features.
  Features include:
@@ -93,9 +110,9 @@ Highest accuracy (6/27/2017): 79.1222222222 percent
 (max_depth=1, n_estimators=1000, learning_rate=0.2)  
 Highest accuracy (6/27/2017): 43.7979539642 percent  
   
-  
+-------------------------
 #### 2. Convolusion Neural Network Model  
-the code I have for CNN applies filtering above and reformat each image into 42 pixel(Y) by 28 pixel(X) format.
+the code I have for CNN applies filtering above and reformat each image into 42 pixel(Y) by 28 pixel(X) format.  
 After this process, my CNN data has 1176 columns per image.  
 
 **CNN structure**  
@@ -131,4 +148,9 @@ model.compile(loss='mean_squared_error', optimizer='adam',metrics=['accuracy'])
 model.fit(X_train, y_train, batch_size=128, nb_epoch=30, verbose=1,validation_split=0.2)
 ```
   
-If you have any suggestion or have better CNN model parameters/code let me know.
+If you have any suggestion or have better CNN model parameters/code for google quickdraw data, let me know!
+--------------
+
+## Findings:  
+
+XG
