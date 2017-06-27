@@ -83,12 +83,14 @@ country prediction:
  + stroke number of the stroke with most data points etc. etc. etc.  
  
  
-** image recognition model **  
+**image recognition model:**  
 (max_depth=1, n_estimators=5000, learning_rate=0.25)  
 Highest accuracy (6/27/2017): percent
+  
+  
 
-
-** country prediction model **  
+**country prediction model:**  
 (max_depth=1, n_estimators=1000, learning_rate=0.2)  
 Highest accuracy (6/27/2017): 43.7979539642 percent  
-
+  
+  
