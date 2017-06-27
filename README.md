@@ -213,6 +213,7 @@ all features on this list had above 1% feature importance
 ## Other:  
 **project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**  
 [![**project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**](http://img.youtube.com/vi/dA4LeDK251A/0.jpg)](https://www.youtube.com/watch?v=dA4LeDK251A)
-    
-Article from Quartz.com
+   
+## Resources:   
+The Article from Quartz.com  
 [How do you draw a circle? We analyzed 100,000 drawings to show how culture shapes our instincts](https://qz.com/994486/the-way-you-draw-circles-says-a-lot-about-you/) 
