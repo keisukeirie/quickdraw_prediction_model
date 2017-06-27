@@ -149,6 +149,7 @@ model.fit(X_train, y_train, batch_size=128, nb_epoch=30, verbose=1,validation_sp
 ```
   
 If you have any suggestion or have better CNN model parameters/code for google quickdraw data, let me know!
+
 --------------
 
 ## Findings:  
