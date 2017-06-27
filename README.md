@@ -95,3 +95,40 @@ Highest accuracy (6/27/2017): 43.7979539642 percent
   
   
 #### 2. Convolusion Neural Network Model  
+the code I have for CNN applies filtering above and reformat each image into 42 pixel(Y) by 28 pixel(X) format.
+After this process, my CNN data has 1176 columns per image.  
+
+**CNN structure**  
++ 64 convolusion layers with kernel size 5 by 5
++ max pooling layer with pooling size 2 by 2
++ 1 layer of feed forward neural network with 100 neurons
+  - relu was used for the activation function 
++ 20% dropout rate was assigned to prevent overfitting
++ final activation function = softmax
++ 4 output neurons  
+
+
+**Keras parameters and codes:**  
+  
+```python
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation, Flatten
+from keras.layers import Convolution2D, MaxPooling2D
+from keras.layers.convolutional import ZeroPadding2D
+from keras.utils import np_utils
+from keras.models import load_model
+
+model = Sequential()
+model.add(Convolution2D(64, 5, 5, activation='relu', input_shape=(42,28,1)))
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Flatten())
+model.add(Dense(100, activation='relu'))
+model.add(Dropout(.20))
+model.add(Dense(4, activation='softmax'))
+
+model.compile(loss='mean_squared_error', optimizer='adam',metrics=['accuracy'])
+
+model.fit(X_train, y_train, batch_size=128, nb_epoch=30, verbose=1,validation_split=0.2)
+```
+  
+If you have any suggestion or have better CNN model parameters/code let me know.
