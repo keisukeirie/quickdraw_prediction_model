@@ -37,7 +37,7 @@ to answer these questions, I prepared 2 prediction models
 
 |                 |  image recognition  |   Country prediction   |
 |:--------------: | :------------------:|:----------------------:|
-|    CNN model    |        88.1%        |           62.7%        |
+|    CNN model    |        90.2%        |           62.7%        |
 |  XGBoost model  |        79.1%        |           43.8%        |
 
 
@@ -149,10 +149,27 @@ model.fit(X_train, y_train, batch_size=128, nb_epoch=30, verbose=1,validation_sp
   
 If you have any suggestion or have better CNN model parameters/code for google quickdraw data, let me know!
 
+
+**image recognition model:**  
+(batch_size = 128, epoch = 20)  
+Highest accuracy (6/27/2017): 90.21666666666667 percent
+  
+  
+**country prediction model:**  
+(batch_size = 128, epoch = 30)  
+Highest accuracy (6/27/2017): 62.7050053121 percent  
+
 --------------
 ## Findings:  
+ 
+From XGBoost model's feature importance attributes, found some interesting results about image recognition and country prediction.  
   
-### Feature importance:  
+### Image recognition:  
+The model distinguish images based on how much datapoints exist in first 3 strokes.  
+In other words, the model looks for amount of details that exist within first 3 strokes.  
+Also 4 types of images are distinguishable based on the starting point of drawing and X:Y ratio of image.  
+It looks on direction (slope and direction) of stroke but somehow, direction of stroke 6 is important when distinguishing cat, tiger, lion and dog drawings.
+
 **XGBoost model's top5 most important features for image recognition:**  
  1. Ymax  
  2. datapoint_percentage_stroke1  
@@ -164,7 +181,19 @@ If you have any suggestion or have better CNN model parameters/code for google q
  8. direction_stroke2  
  9. total_time_drawing  
  10. Y_0  
- 
+   
+  
+### Country prediction:  
+In order to distinguish user's country, the XGBoost model looks on certain characteristics of images.  
+  
+1. amount of information (details) exist within an image  
+2. how fast/slow did users draw their images  
+3. direction of first few strokes
+4. X,Y ratio of images
+
+number 3 brings up interesting points since [Quartz.com](https://qz.com/994486/the-way-you-draw-circles-says-a-lot-about-you/) had an article on quickdraw with similar data analysis result.  
+Both article and my results show that diffrent culture/country tends to draw certain shape/objects differently due to their method of writing.
+
 
 **XGBoost model's top5 most important features for country prediction:**  
  1. total_number_of_datapoints  
@@ -184,3 +213,6 @@ all features on this list had above 1% feature importance
 ## Other:  
 **project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**  
 [![**project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**](http://img.youtube.com/vi/dA4LeDK251A/0.jpg)](https://www.youtube.com/watch?v=dA4LeDK251A)
+    
+Article from Quartz.com
+[How do you draw a circle? We analyzed 100,000 drawings to show how culture shapes our instincts](https://qz.com/994486/the-way-you-draw-circles-says-a-lot-about-you/) 
