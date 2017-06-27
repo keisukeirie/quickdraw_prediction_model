@@ -2,21 +2,7 @@
 this is my repository for the quick draw prediction model project  
 _last updated: 6/27/2017_  
 
-## Introduction:
-
-[Google Quickdraw](https://quickdraw.withgoogle.com/data) released dataset that contains over 50 million drawings on 5/18/2017.the google quickdraw is online pictionary game application where user is asked to draw a picture of something in 20 seconds.While user draws picture, google AI will try to predict what user is drawing.  
-  
-  
-With this dataset, I wanted to answer following 2 questions:
-
-**_1. Can machine learning models distinguish similar drawings?_**  
-**_2. Can machine learning models identify users' country based on their drawings?_**
-
-to answer these questions, I prepared 2 prediction models
-1. XGBoost ensemble method model
-2. Convolusional Neural Network model
-
-## Instructions
+## Repo Instructions
 
 python folder:  
 + contains 3 python files  
@@ -31,6 +17,19 @@ Procedure.ipynb
 + Jupyter notebook that runs python codes above. note that there is no data stored in this repo.
 
 
+## Introduction:
+
+[Google Quickdraw](https://quickdraw.withgoogle.com/data) released dataset that contains over 50 million drawings on 5/18/2017.the google quickdraw is online pictionary game application where user is asked to draw a picture of something in 20 seconds.While user draws picture, google AI will try to predict what user is drawing.  
+  
+  
+With this dataset, I wanted to answer following 2 questions:
+
+**_1. Can machine learning models distinguish similar drawings?_**  
+**_2. Can machine learning models identify users' country based on their drawings?_**
+
+to answer these questions, I prepared 2 prediction models
+1. XGBoost ensemble method model
+2. Convolusional Neural Network model
 
 ## Results
 
@@ -156,6 +155,6 @@ If you have any suggestion or have better CNN model parameters/code for google q
 
 XG
 
-## OTHER:  
+## Other:  
 **project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**  
 [![**project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**](http://img.youtube.com/vi/dA4LeDK251A/0.jpg)](https://www.youtube.com/watch?v=dA4LeDK251A)
