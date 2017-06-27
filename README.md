@@ -11,6 +11,7 @@ While user draws picture, google AI will try to predict what user is drawing.
 With this dataset, I wanted to answer following 2 questions:
 
 **_1. Can machine learning models distinguish similar drawings?_**
+
 **_2. Can machine learning models identify users' country based on their drawings?_**
 
 to answer these questions, I prepared 2 prediction models
@@ -46,7 +47,7 @@ My initial guess was that the way people draw pictures are closely related to ho
 
 Image recognition:
 + used 120,000 drawings
- - CAT:30,000  TIGER:30,000  LION:30,000  DOG:30,000
+  - CAT:30,000  TIGER:30,000  LION:30,000  DOG:30,000
 + drawings were selected randomly
 
 Country prediction:
