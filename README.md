@@ -1,4 +1,4 @@
-# quickdraw_prediction_model
+# quick,draw! prediction model
 this is my repository for the quick draw prediction model project  
 _last updated: 6/27/2017_  
 
