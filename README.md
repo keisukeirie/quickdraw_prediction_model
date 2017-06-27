@@ -165,10 +165,10 @@ Highest accuracy (6/27/2017): 62.7050053121 percent
 From XGBoost model's feature importance attributes, found some interesting results about image recognition and country prediction.  
   
 ### Image recognition:  
-The model distinguish images based on how much datapoints exist in first 3 strokes.  
-In other words, the model looks for amount of details that exist within first 3 strokes.  
-Also 4 types of images are distinguishable based on the starting point of drawing and X:Y ratio of image.  
-It looks on direction (slope and direction) of stroke but somehow, direction of stroke 6 is important when distinguishing cat, tiger, lion and dog drawings.
+The model distinguished images based on how much datapoints exist in first 3 strokes.  
+In other words, the model looked for amount of details that exist within first 3 strokes.  
+Also 4 types of images were distinguishable based on the starting point of drawing and X:Y ratio of image.  
+It looked on direction (slope and direction) of stroke. Somehow, direction of stroke 6 was important when distinguishing cat, tiger, lion and dog drawings.
 
 **XGBoost model's top5 most important features for image recognition:**  
  1. Ymax  
@@ -184,15 +184,15 @@ It looks on direction (slope and direction) of stroke but somehow, direction of 
    
   
 ### Country prediction:  
-In order to distinguish user's country, the XGBoost model looks on certain characteristics of images.  
+In order to distinguish user's country, my XGBoost model looked on certain characteristics of images.  
   
 1. amount of information (details) exist within an image  
 2. how fast/slow did users draw their images  
 3. direction of first few strokes
 4. X,Y ratio of images
 
-number 3 brings up interesting points since [Quartz.com](https://qz.com/994486/the-way-you-draw-circles-says-a-lot-about-you/) had an article on quickdraw with similar data analysis result.  
-Both article and my results show that diffrent culture/country tends to draw certain shape/objects differently due to their method of writing.
+number 3 brings up interesting point since [Quartz.com](https://qz.com/994486/the-way-you-draw-circles-says-a-lot-about-you/) had an article on quickdraw with similar data analysis result.  
+Both article and my results showed that diffrent culture/country tends to draw certain shape/objects differently due to their method of writing.
 
 
 **XGBoost model's top5 most important features for country prediction:**  
