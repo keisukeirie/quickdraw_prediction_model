@@ -59,5 +59,36 @@ Country prediction:
 
 
 ## MODELS
+#### Filters applied to both models  
+all drawing used in training  
+1. were recognized by Google AI correctly
+2. contains 15 or less strokes
+3. has final time that is 20000ms or less
+4. has X and Y ratio where range of Y / range of X =< 1.5
+  
+**label:**  
+image recognition:  
+[cat,tiger,lion,dog]  
+
+country prediction:  
+[US, BR, RU, KR]
+
 #### 1. XGBOOST
+ Ran codes that creates 399 new features.
+ Features include:
+ + average number of datapoints per stroke
+ + total time spent on drawing
+ + time per stroke
+ + direction (in radian) of particular stroke
+ + stroke number of the stroke with most data points etc. etc. etc.  
+ 
+ 
+** image recognition model **  
+(max_depth=1, n_estimators=5000, learning_rate=0.25)  
+Highest accuracy (6/27/2017): percent
+
+
+** country prediction model **  
+(max_depth=1, n_estimators=1000, learning_rate=0.2)  
+Highest accuracy (6/27/2017): 43.7979539642 percent  
 
