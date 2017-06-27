@@ -9,7 +9,7 @@ features include ID, category(what it asked to draw), timestamp, whether AI gues
 With this dataset I am planning to run a neural network to determine user's country code based on stroke information. unlike input images for typical neural network image prediction model, the stroke information contains 2 more additional dimensions:
 
     image      |     stroke
--------------- | ----------------
+:--------------: | :----------------:
     2D (X,Y)   | 4D(X,Y,time,stroke)
    a drawing   | users' process of drawing
 
