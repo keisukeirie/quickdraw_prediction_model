@@ -150,10 +150,36 @@ model.fit(X_train, y_train, batch_size=128, nb_epoch=30, verbose=1,validation_sp
 If you have any suggestion or have better CNN model parameters/code for google quickdraw data, let me know!
 
 --------------
-
 ## Findings:  
+  
+### Feature importance:  
+**XGBoost model's top5 most important features for image recognition:**  
+ 1. Ymax  
+ 2. datapoint_percentage_stroke1  
+ 3. datapoint_percentage_stroke2  
+ 4. X_0  
+ 5. direction_stroke6  
+ 6. datapoint_percentage_stroke0  
+ 7. direction_stroke1  
+ 8. direction_stroke2  
+ 9. total_time_drawing  
+ 10. Y_0  
+ 
 
-XG
+**XGBoost model's top5 most important features for country prediction:**  
+ 1. total_number_of_datapoints  
+ 2. time_stroke0  
+ 3. direction_stroke2  
+ 4. X_0  
+ 5. time_1  
+ 6. ave_datapoints_per_stroke  
+ 7. direction_stroke0  
+ 8. direction_stroke3  
+ 9. final_time  
+ 10. Ymax  
+ 
+all features on this list had above 1% feature importance
+
 
 ## Other:  
 **project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**  
