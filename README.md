@@ -170,7 +170,7 @@ In other words, the model looked for amount of details that exist within first 3
 Also 4 types of images were distinguishable based on the starting point of drawing and X:Y ratio of image.  
 It looked on direction (slope and direction) of stroke. Somehow, direction of stroke 6 was important when distinguishing cat, tiger, lion and dog drawings.
 
-**XGBoost model's top5 most important features for image recognition:**  
+**XGBoost model's top10 most important features for image recognition:**  
  1. Ymax  
  2. datapoint_percentage_stroke1  
  3. datapoint_percentage_stroke2  
@@ -195,7 +195,7 @@ number 3 brings up interesting point since [Quartz.com](https://qz.com/994486/th
 Both article and my results showed that diffrent culture/country tends to draw certain shape/objects differently due to their method of writing.
 
 
-**XGBoost model's top5 most important features for country prediction:**  
+**XGBoost model's top10 most important features for country prediction:**  
  1. total_number_of_datapoints  
  2. time_stroke0  
  3. direction_stroke2  
