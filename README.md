@@ -157,4 +157,5 @@ If you have any suggestion or have better CNN model parameters/code for google q
 XG
 
 ## OTHER:  
+**project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**  
 [![**project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**](http://img.youtube.com/vi/dA4LeDK251A/0.jpg)](https://www.youtube.com/watch?v=dA4LeDK251A)
