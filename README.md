@@ -9,8 +9,10 @@ While user draws picture, google AI will try to predict what user is drawing.
 
 
 With this dataset, I wanted to answer following 2 questions:
-** _1. Can machine learning models distinguish similar drawings?_ **
-** _2. Can machine learning models identify users' country based on their drawings?_ **
+
+**_1. Can machine learning models distinguish similar drawings?_**
+
+**_2. Can machine learning models identify users' country based on their drawings?_**
 
 to answer these questions, I prepared 2 prediction models
 1. XGBoost ensemble method model
@@ -27,6 +29,7 @@ features include drawing_ID, category(what quickdraw asked to draw), timestamp, 
 The drawing feature is a list of strokes and stroke is a list of X,Y and time (3 lists within a stroke)
 
 the stroke information contains 2 additional dimensions:
+
 |  typical image  |   Quickdraw data   |
 |:--------------: | :-----------------:|
 | 3D (X,Y,color ) | 4D(X,Y,time,stroke)|
