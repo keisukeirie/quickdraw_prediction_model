@@ -2,21 +2,7 @@
 this is my repository for the quick draw prediction model project  
 _last updated: 6/27/2017_  
 
-## Introduction:
-
-[Google Quickdraw](https://quickdraw.withgoogle.com/data) released dataset that contains over 50 million drawings on 5/18/2017.the google quickdraw is online pictionary game application where user is asked to draw a picture of something in 20 seconds.While user draws picture, google AI will try to predict what user is drawing.  
-  
-  
-With this dataset, I wanted to answer following 2 questions:
-
-**_1. Can machine learning models distinguish similar drawings?_**  
-**_2. Can machine learning models identify users' country based on their drawings?_**
-
-to answer these questions, I prepared 2 prediction models
-1. XGBoost ensemble method model
-2. Convolusional Neural Network model
-
-## Instructions
+## Repo Instructions
 
 python folder:  
 + contains 3 python files  
@@ -31,6 +17,19 @@ Procedure.ipynb
 + Jupyter notebook that runs python codes above. note that there is no data stored in this repo.
 
 
+## Introduction:
+
+[Google Quickdraw](https://quickdraw.withgoogle.com/data) released dataset that contains over 50 million drawings on 5/18/2017.the google quickdraw is online pictionary game application where user is asked to draw a picture of something in 20 seconds.While user draws picture, google AI will try to predict what user is drawing.  
+  
+  
+With this dataset, I wanted to answer following 2 questions:
+
+**_1. Can machine learning models distinguish similar drawings?_**  
+**_2. Can machine learning models identify users' country based on their drawings?_**
+
+to answer these questions, I prepared 2 prediction models
+1. XGBoost ensemble method model
+2. Convolusional Neural Network model
 
 ## Results
 
@@ -38,7 +37,7 @@ Procedure.ipynb
 
 |                 |  image recognition  |   Country prediction   |
 |:--------------: | :------------------:|:----------------------:|
-|    CNN model    |        88.1%        |           62.7%        |
+|    CNN model    |        90.2%        |           62.7%        |
 |  XGBoost model  |        79.1%        |           43.8%        |
 
 
@@ -149,8 +148,71 @@ model.fit(X_train, y_train, batch_size=128, nb_epoch=30, verbose=1,validation_sp
 ```
   
 If you have any suggestion or have better CNN model parameters/code for google quickdraw data, let me know!
+
+
+**image recognition model:**  
+(batch_size = 128, epoch = 20)  
+Highest accuracy (6/27/2017): 90.21666666666667 percent
+  
+  
+**country prediction model:**  
+(batch_size = 128, epoch = 30)  
+Highest accuracy (6/27/2017): 62.7050053121 percent  
+
 --------------
-
 ## Findings:  
+ 
+From XGBoost model's feature importance attributes, found some interesting results about image recognition and country prediction.  
+  
+### Image recognition:  
+The model distinguished images based on how much datapoints exist in first 3 strokes.  
+In other words, the model looked for amount of details that exist within first 3 strokes.  
+Also 4 types of images were distinguishable based on the starting point of drawing and X:Y ratio of image.  
+It looked on direction (slope and direction) of stroke. Somehow, direction of stroke 6 was important when distinguishing cat, tiger, lion and dog drawings.
 
-XG
+**XGBoost model's top5 most important features for image recognition:**  
+ 1. Ymax  
+ 2. datapoint_percentage_stroke1  
+ 3. datapoint_percentage_stroke2  
+ 4. X_0  
+ 5. direction_stroke6  
+ 6. datapoint_percentage_stroke0  
+ 7. direction_stroke1  
+ 8. direction_stroke2  
+ 9. total_time_drawing  
+ 10. Y_0  
+   
+  
+### Country prediction:  
+In order to distinguish user's country, my XGBoost model looked on certain characteristics of images.  
+  
+1. amount of information (details) exist within an image  
+2. how fast/slow did users draw their images  
+3. direction of first few strokes
+4. X,Y ratio of images
+
+number 3 brings up interesting point since [Quartz.com](https://qz.com/994486/the-way-you-draw-circles-says-a-lot-about-you/) had an article on quickdraw with similar data analysis result.  
+Both article and my results showed that diffrent culture/country tends to draw certain shape/objects differently due to their method of writing.
+
+
+**XGBoost model's top5 most important features for country prediction:**  
+ 1. total_number_of_datapoints  
+ 2. time_stroke0  
+ 3. direction_stroke2  
+ 4. X_0  
+ 5. time_1  
+ 6. ave_datapoints_per_stroke  
+ 7. direction_stroke0  
+ 8. direction_stroke3  
+ 9. final_time  
+ 10. Ymax  
+ 
+all features on this list had above 1% feature importance
+
+
+## Other:  
+**project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**  
+[![**project presentation video DSI capstone project showcase Galvanize Austin 6/22/2017**](http://img.youtube.com/vi/dA4LeDK251A/0.jpg)](https://www.youtube.com/watch?v=dA4LeDK251A)
+   
+## Resources:   
+[How do you draw a circle? We analyzed 100,000 drawings to show how culture shapes our instincts](https://qz.com/994486/the-way-you-draw-circles-says-a-lot-about-you/) 
