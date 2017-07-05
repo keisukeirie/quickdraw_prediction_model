@@ -53,12 +53,12 @@ Example2: Cat Drawing2
 ![prediction_for_example2](images/chart_cat2.jpg)  
   
 For image recognition, both CNN and XGBoost models had high accuracy.  
-Since these two models look at different types of features in images, whenever they see "unique" drawings like Example2,  
-two models analyze images differently.
+Since these two models look at different types of features in images,  
+whenever they see "unique" drawings like Example2, two models analyze images differently.
  
 ### Results of Country prediction
 
-Example1: Dog Drawing from Brasil
+Example1: Dog Drawing from Brasil  
 ![example3](images/dog1.jpg)
 ![prediction_for_example3](images/chart_dog1.jpg)
 
