@@ -4,7 +4,6 @@
 the google quickdraw is online pictionary game application where user is asked to draw a picture of something in 20 seconds. 
 While user draws picture, google AI will try to predict what user is drawing.
 
-<<<<<<< HEAD
 the dataset that google released contains images and features of that images.
 features include ID, category(what it asked to draw), timestamp, whether AI guessed it collect or not and actual drawings.
 these drawing is stored as a list of list. It stores strokes as a list and within a stroke, there are lists of X,Y and time data associated with that particular stroke.
@@ -19,7 +18,7 @@ these drawing is stored as a list of list. It stores strokes as a list and withi
 
 With this dataset I am planning to run neural network to make a prediction model of categories.
 for my initial test, I will try to distinguish between drawings of circle and square. If the model is successful, my model will distinguish circle and square based on how users draw pictures.
-=======
+
 the dataset that google released contains images and several features related to image.
 features include drawing_ID, category(what quickdraw asked to draw), timestamp, whether AI guessed correct or not, user's country and drawing. drawing is represented as a list of list of list.
 Drawing is a list of strokes and stroke is a list of X,Y and time (3 lists within a stroke)
@@ -31,7 +30,7 @@ With this dataset I ran convolutional neural network and XGboost ensemble method
 |     2D (X,Y )   | 4D(X,Y,time,stroke)|
 |     a drawing   | users' process of drawing|
 
->>>>>>> 668694083a10e7f9066ab3cc3376081f523206db
+
 
 ## 2.What question/problem will your project attempt to answer/solve?:
 With drawings from multiple categories, I am planning to predict user's country code.
