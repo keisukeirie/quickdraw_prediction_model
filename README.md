@@ -44,17 +44,32 @@ to answer these questions, I prepared 2 prediction models
   
 ### Results of image recognition
 
+Example1: Cat Drawing1  
 ![example1](images/cat1.jpg)
-![prediction_for_example1](images/chart_cat1.jpg)
+![prediction_for_example1](images/chart_cat1.jpg)  
 
+Example2: Cat Drawing2  
 ![example2](images/cat2.jpg)
 ![prediction_for_example2](images/chart_cat2.jpg)  
   
-  
+For image recognition, both CNN and XGBoost models had high accuracy.  
+Since these two models look at different types of features in images, whenever they see "unique" drawings like Example2,  
+two models analyze images differently.
+ 
 ### Results of Country prediction
 
+Example1: Dog Drawing from Brasil
 ![example3](images/dog1.jpg)
 ![prediction_for_example3](images/chart_dog1.jpg)
+
+For Country prediction, models had lower accuracy than ones from image recognition.  
+Important features from XGboost model indicates that users' country can be identified based on  
+  
+1. amount of information (details) exist within an image  
+2. how fast/slow did users draw their images  
+3. direction of first few strokes
+4. X,Y ratio of images
+
 
 ## Data used:
 
