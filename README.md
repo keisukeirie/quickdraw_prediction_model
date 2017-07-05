@@ -17,7 +17,7 @@ Procedure.ipynb
 + Jupyter notebook that runs python codes above. note that there is no data stored in this repo.
 
 images  
-+ images used in this readme markdown file.  
++ jpeg images used in this readme markdown file.  
 
 ## Introduction:
 
@@ -29,7 +29,7 @@ With this dataset, I wanted to answer following 2 questions:
 **_1. Can machine learning models distinguish similar drawings?_**  
 **_2. Can machine learning models identify users' country based on their drawings?_**
 
-to answer these questions, I prepared 2 prediction models
+To answer these questions, I prepared 2 prediction models
 1. XGBoost ensemble method model
 2. Convolusional Neural Network model
 
@@ -54,9 +54,9 @@ Example2: Cat Drawing2
 ![example2](images/cat2.jpg)
 ![prediction_for_example2](images/chart_cat2.jpg)  
   
-For image recognition, both CNN and XGBoost models had high accuracy.  
+For image recognition, both CNN and XGBoost models had high prediction accuracy.  
 Since these two models look at different types of features in images,  
-whenever they see "unique" drawings like Example2, two models analyze images differently.
+whenever they see "unique" drawings like Example2, prediction results look completely different.
  
 ### Results of Country prediction
 
@@ -65,7 +65,7 @@ Example1: Dog Drawing from Brasil
 ![prediction_for_example3](images/chart_dog1.jpg)
 
 For Country prediction, models had lower accuracy than ones from image recognition.  
-Important features from XGboost model indicates that users' country can be identified based on  
+The important features from XGboost model indicates that users' country can be identified based on  
   
 1. amount of information (details) exist within an image  
 2. how fast/slow did users draw their images  
