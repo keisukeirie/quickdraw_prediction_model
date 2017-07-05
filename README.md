@@ -1,6 +1,6 @@
 # quick,draw! prediction model
 this is my repository for the quick draw prediction model project  
-_last updated: 6/27/2017_  
+_last updated: 7/05/2017_  
 
 ## Repo Instructions
 
@@ -16,6 +16,8 @@ python folder:
 Procedure.ipynb  
 + Jupyter notebook that runs python codes above. note that there is no data stored in this repo.
 
+images  
++ images used in this readme markdown file.  
 
 ## Introduction:
 
