@@ -38,8 +38,23 @@ to answer these questions, I prepared 2 prediction models
 |                 |  image recognition  |   Country prediction   |
 |:--------------: | :------------------:|:----------------------:|
 |    CNN model    |        90.2%        |           62.7%        |
-|  XGBoost model  |        79.1%        |           43.8%        |
+|  XGBoost model  |        79.1%        |           43.8%        |  
 
+  
+  
+### Results of image recognition
+
+![example1](images/cat1.jpg)
+![prediction_for_example1](images/chart_cat1.jpg)
+
+![example2](images/cat2.jpg)
+![prediction_for_example2](images/chart_cat2.jpg)  
+  
+  
+### Results of Country prediction
+
+![example3](images/dog1.jpg)
+![prediction_for_example3](images/chart_dog1.jpg)
 
 ## Data used:
 
