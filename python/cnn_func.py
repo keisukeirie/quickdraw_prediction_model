@@ -88,13 +88,14 @@ def CNN_image_recognition(df1,df2,df3,df4,sample=30000,binary=False,\
     y_train
     y_test
     '''
-
+    #from input dataframes, create 1 X dataframe and label
     Xtemp1, labeldump = image_identification_datasetup(df1,df2,sample=sample)
     xtemp2, labeldump = image_identification_datasetup(df3,df4,sample=sample)
     label = sample*[0]+sample*[1]+sample*[2]+sample*[3]
     label = pd.Series(label)
     X = pd.concat([Xtemp1,Xtemp2], axis = 0)
-    return CNN_model_builder(XX,label,binary=binary,category = 4,\
+    # runs CNN_model_builder with X and label. returns CNN model and X,Y train and test dataset
+    return CNN_model_builder(X,label,binary=binary,category = 4,\
                             cnnp =[convlayer,neuron], fitp =[batchsize,epoch])
 
 
@@ -169,15 +170,18 @@ def CNN_country_prediction(df1,df2,df3,df4,sample=30000,limit=5000,
     y_train
     y_test
     '''
-
+    # runs cc_prediction_datasetup which will prepare dataframe X and labels for Country prediction CNN modeling.
     X,label = cc_prediction_datasetup(df1,df2,df3,df4, \
                                 countries = ['US','BR','RU','KR'], limit = limit)
     label = pd.Series(label)
-    null_val = pd.isnull(X).any(1).nonzero()[0]
-    index_X = [i for i in X.index if i not in null_vall]
-    new_df = X.loc[index_X]
-    new_label = label.loc[index_X]
-    return CNN_model_builder(new_df,label,binary=binary,category = 4,\
+    ## make sure null values are not in the X data frame
+    #null_val = pd.isnull(X).any(1).nonzero()[0]
+    #index_X = [i for i in X.index if i not in null_vall]
+    #new_df = X.loc[index_X]
+    #new_label = label.loc[index_X]
+    
+    # runs CNN_model_builder and returns CNN model, X and Y train, test dataset
+    return CNN_model_builder(X,label,binary=binary,category = 4,\
                             cnnp =[convlayer,neuron], fitp =[batchsize,epoch])
 
 
@@ -281,11 +285,14 @@ def CNN_model_builder(X,label,binary=False, category =4, cnnp =[64,100], fitp =[
     y_test
 
     '''
-
+    # when binary is True, the image is represented with 0 and 1.
+    # meaning that non-zero values are replaced with 1.
     if binary:
         X = np.array(X)
         X[X != 0.0] = 1
         data_np = X
+    # when binary is False, images contains time values as a 3rd dimension value.
+    # the time values (in sec) is normalized 
     else:
         data_np = np.array(X)
         #normalizing time values
@@ -299,7 +306,7 @@ def CNN_model_builder(X,label,binary=False, category =4, cnnp =[64,100], fitp =[
     #train,test split
     X_train,X_test,y_train,y_test =train_test_split(data_np,label2,test_size = 0.15, \
                                                     random_state=831713, stratify = label2)
-
+    # KERAS model (explained above)
     model = Sequential()
     model.add(Convolution2D(cnnp[0], 5, 5, activation='relu', input_shape=(42,28,1)))
     model.add(MaxPooling2D(pool_size=(2,2)))
@@ -311,7 +318,7 @@ def CNN_model_builder(X,label,binary=False, category =4, cnnp =[64,100], fitp =[
     model.compile(loss='mean_squared_error',
               optimizer='adam',
               metrics=['accuracy'])
-
+    #once model is created, it will be fitted with training datasets
     model.fit(X_train, y_train,
           batch_size=fitp[0], nb_epoch=fitp[1], verbose=1,validation_split=0.2)
 
