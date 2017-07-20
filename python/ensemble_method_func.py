@@ -29,31 +29,36 @@ def data_preparer_ensemble(df1,df2,df3,df4, lbl = 'word', countries=['US','BR','
 
     note: uses random.seed(32113)
     '''
+    # if running image recognition, 
     if lbl == 'word':
+      #runs _df_initial_fixer for each word to prepare dataframe
         df_test1 = _df_initial_fixer(df1,words[0],sample)
         df_test2 = _df_initial_fixer(df2,words[1],sample)
         df_test3 = _df_initial_fixer(df3,words[2],sample)
         df_test4 = _df_initial_fixer(df4,words[3],sample)
         print len(df_test1),len(df_test2),len(df_test3),len(df_test4)
-
+        # convining all 4 dataframe to create a new dataframe. the new_df will be the input for XGB.
         new_df = pd.concat([df_test1,df_test2,df_test3,df_test4], axis =0)
         yd = new_df.pop('countrycode')
         Y = new_df.pop('word')
         b_loon={}
         for i in xrange(len(words)):
             b_loon[words[i]] = i
+        # Y will be the label for my XGB model.
         Y = Y.map(b_loon)
         return new_df,Y
-
+    
+    # if running country prediction,
     elif lbl == 'countrycode':
+      #runs _df_initial_fixer_cc for each word to prepare dataframe
         df_test1 = _df_initial_fixer_cc(df1,words[0])
         df_test2 = _df_initial_fixer_cc(df2,words[1])
         df_test3 = _df_initial_fixer_cc(df3,words[2])
         df_test4 = _df_initial_fixer_cc(df4,words[3])
         print len(df_test1),len(df_test2),len(df_test3),len(df_test4)
-
         new_df = pd.concat([df_test1,df_test2,df_test3,df_test4], axis =0)
-        #filter dataframe with selected countries
+        
+        #filter dataframe by selected countries
         df_cf = new_df[(new_df['countrycode']==countries[0])|(new_df['countrycode']==countries[1])|\
                    (new_df['countrycode']==countries[2])|(new_df['countrycode']==countries[3])]
         print len(df_cf)
@@ -69,13 +74,15 @@ def data_preparer_ensemble(df1,df2,df3,df4, lbl = 'word', countries=['US','BR','
 
         print "number of images for US:{}, BR:{}, RU:{}, KR:{}\n"\
                     .format(len(df_US),len(df_BR),len(df_RU),len(df_KR))
-
+        # new_df will be the input Dataframe for XGBoost and Y will be the label
         new_df = pd.concat([df_US,df_BR,df_RU,df_KR], axis=0)
         Y = new_df.pop('countrycode')
         b_loon = {}
         for i in xrange(len(countries)):
             b_loon[countries[i]] = i
         Y = Y.map(b_loon)
+       
+        # creating additional feature called word. In this feature number represents the word of image.
         b_loon2={'cat':0,'tiger':1,'lion':2,'dog':3}
         new_df['word']=new_df['word'].map(b_loon2)
 
@@ -86,7 +93,6 @@ def data_preparer_ensemble(df1,df2,df3,df4, lbl = 'word', countries=['US','BR','
 def _df_initial_fixer(df, word, sample=60000):
     '''
     function:
-    - prepares training and test X and Y for randomforest, XGboost test
     - ramdomly select rows (image) "sample" times from the df dataframe
     and delete features that are not used in ensemble method modeling
 
@@ -113,8 +119,6 @@ def _df_initial_fixer_cc(df, word):
     prepares training and test X and Y for xgboost test for countrycode classifier
 
     function:
-    - prepares training and test X and Y for randomforest, XGboost test
-                                                    for countrycode classifier
     - delete features that are not used in ensemble method modeling
 
     input:
@@ -134,8 +138,7 @@ def _df_initial_fixer_cc(df, word):
 def _country_initial_fixer(df,country,limit):
     '''
     Function:
-    extracts data with specific country code and ramdomly select "limit" amount
-    of data.
+    extracts data by country and ramdomly select "limit" amount of data from that dataset
 
     Input:
     df = dataframe (should contain 'countrycode' features) [dataframe]
@@ -143,7 +146,7 @@ def _country_initial_fixer(df,country,limit):
     limit = max number of rows (data) you want to take into the new data frame
 
     Output:
-    dataframe contains data from selected country (# of data < limit)
+    dataframe contains data from selected country (# of data <= limit)
 
     note: uses random.seed(32113)
     '''
