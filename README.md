@@ -34,7 +34,9 @@ To answer these questions, I prepared 2 prediction models
 2. Convolusional Neural Network model
 
 ## Results
-
+  
+I made 4-way classifier prediction models for both image recognition and country prediction models (Total of 4 models).  
+  
 **model Accuracy**  
 
 |                 |  image recognition  |   Country prediction   |
