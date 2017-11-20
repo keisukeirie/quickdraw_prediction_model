@@ -83,7 +83,7 @@ The important features from XGboost model indicates that users' country can be i
 
 
 ## Data used:
-
+  
 the dataset that google released contains images and several features related to image.  
 Features include drawing_ID, category(what quickdraw asked to draw), timestamp, whether AI guessed correct or not, user's country and drawing.  
 drawing is represented as a list of list of list.  
