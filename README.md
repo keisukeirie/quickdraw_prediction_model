@@ -1,6 +1,6 @@
 # quick,draw! prediction model
 this is my repository for the quick draw prediction model project  
-_last updated: 7/05/2017_  
+_last updated: 11/20/2017_  
 
 ## Repo Instructions
 
@@ -21,21 +21,26 @@ images
 
 ## Introduction:
 
-[Google Quickdraw](https://quickdraw.withgoogle.com/data) released dataset that contains over 50 million drawings on 5/18/2017.the google quickdraw is online pictionary game application where user is asked to draw a picture of something in 20 seconds.While user draws picture, google AI will try to predict what user is drawing.  
+[Google Quickdraw](https://quickdraw.withgoogle.com/data) released dataset that contains over 50 million drawings on 5/18/2017.  
+the google quickdraw is an online pictionary game application where...   
+1. user is asked to draw a picture of certain category in 20 seconds    
+2. While user draws a picture, google AI will try to predict what user is drawing  
+3. If google AI predicts what user is drawing, user wins!  
+4. repeat 1-3 6 times.  
+(Of course there is no prize for winning this game but it is super addicting!)  
   
   
-With this dataset, I wanted to answer following 2 questions:
-
+With this dataset, I wanted to answer following 2 questions:  
 **_1. Can machine learning models distinguish similar drawings?_**  
-**_2. Can machine learning models identify users' country based on their drawings?_**
-
-To answer these questions, I prepared 2 prediction models
-1. XGBoost ensemble method model
-2. Convolusional Neural Network model
-
+**_2. Can machine learning models identify users' country based on their drawings?_**  
+  
+To answer these questions, I prepared 2 prediction models  
+1. XGBoost ensemble method model  
+2. Convolusional Neural Network model  
+  
 ## Results
   
-I made 4-way classifier prediction models for both image recognition and country prediction models (Total of 4 models).  
+I made 4-way classifier prediction models for both image recognition and country prediction (Total of 4 models).  
   
 **model Accuracy**  
 
@@ -57,11 +62,13 @@ Example2: Cat Drawing2
 ![prediction_for_example2](images/chart_cat2.jpg)  
   
 For image recognition, both CNN and XGBoost models had high prediction accuracy.  
-Since these two models look at different types of features in images,  
-whenever they see "unique" drawings like Example2, prediction results look completely different.
- 
+Since CNN model looks into pixels and XGBoost model looks into features that I calculated,  
+features are engineered differently for each model (meaning models analyze images completely differently).  
+Therefore, they make quite different predictions. For instance, check out Example2 above.  
+  
+  
 ### Results of Country prediction
-
+  
 Example1: Dog Drawing from Brasil  
 ![example3](images/dog1.jpg)
 ![prediction_for_example3](images/chart_dog1.jpg)
@@ -77,21 +84,25 @@ The important features from XGboost model indicates that users' country can be i
 
 ## Data used:
 
-the dataset that google released contains images and several features related to image.Features include drawing_ID, category(what quickdraw asked to draw), timestamp, whether AI guessed correct or not, user's country and drawing. drawing is represented as a list of list of list.The drawing feature is a list of strokes and stroke is a list of X,Y and time (3 lists within a stroke)
+the dataset that google released contains images and several features related to image.  
+Features include drawing_ID, category(what quickdraw asked to draw), timestamp, whether AI guessed correct or not, user's country and drawing.  
+drawing is represented as a list of list of list.  
+The drawing feature is a list of strokes and stroke is a list of X,Y and time (3 lists within a stroke)  
   
-the stroke information contains 2 additional dimensions:
-
-|  typical image  |   Quickdraw data   |
-|:--------------: | :-----------------:|
-| 3D (X,Y,color ) | 4D(X,Y,time,stroke)|
-|     a drawing   | how user drew a drawing|
-
-
+the stroke information contains 2 additional dimensions:  
+  
+|  typical image  |   Quickdraw data   |  
+|:--------------: | :-----------------:|  
+| 3D (X,Y,color ) | 4D(X,Y,time,stroke)|  
+|     a drawing   | how user drew a drawing|  
+  
+  
 from this input dataset, I collected image data of **CAT**, **TIGER**, **LION**, **DOG** for image recognition part of my project.  
-for country preiction part of my project I selected 4 countries: **US**, **BRASIL**, **RUSSIA** and **SOUTH KOREA**.  
   
-I used these 4 countries because these 4 countries had good number of images and they also have different alphabet/language.  
-My initial guess was that the way people draw pictures are closely related to how people write.
+for country preiction part of my project I selected 4 countries: **United States**, **BRASIL**, **RUSSIA** and **SOUTH KOREA**.  
+  
+I used these 4 countries because these 4 countries had good number of images and they also do not share same alphabet/language.  
+My initial guess was that the way people draw is closely related to how people write.  
 
 ------------
 #### other info:
