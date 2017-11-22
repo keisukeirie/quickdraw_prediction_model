@@ -10,8 +10,9 @@ def data_preparer_ensemble(df1,df2,df3,df4, lbl = 'word', countries=['US','BR','
                    words=['cat','tiger','lion','dog'],sample=30000, limit = 5000):
     '''
     Function:
-    process dataframes so that it can be used for xgboost, randomforest other ensemble methods
-    function prepares dataframe for image recognition model and country code prediction model
+    process dataframes so that it can be used for xgboost, random forest and other ensemble methods.
+    the function prepares dataframe for image recognition model and country code prediction model.
+    
     Input:
     df1,2,3,4 = dataframes with different topics (cat,dog,lion,tiger) [dataframe]
     lbl = "word" or "coountrycode":
@@ -24,8 +25,8 @@ def data_preparer_ensemble(df1,df2,df3,df4, lbl = 'word', countries=['US','BR','
     limit = max number of data from one country (used when lbl = countrycode)
 
     Output:
-    new_df = dataframe or X data for your model
-    Y = label for your model
+    new_df = dataframe or the non-label features of your model
+    Y = a label feature of your model
 
     note: uses random.seed(32113)
     '''
@@ -86,7 +87,7 @@ def data_preparer_ensemble(df1,df2,df3,df4, lbl = 'word', countries=['US','BR','
         b_loon2={'cat':0,'tiger':1,'lion':2,'dog':3}
         new_df['word']=new_df['word'].map(b_loon2)
 
-        return new_df,Y,df_US,df_BR,df_RU,df_KR
+        return new_df,Y #,df_US,df_BR,df_RU,df_KR
     else:
         print "set your lbl to 'word' or 'countrycode' "
 

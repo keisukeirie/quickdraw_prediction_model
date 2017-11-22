@@ -19,8 +19,8 @@ def feature_engineering_ensemble(df,category,sample=60000,purpose='word',\
                                             countries = ['US','BR','RU','KR']):
     '''
     function:
-    - aggregates multiple functions to create dataframe for ensemble method modeling.
-    - it also prints out how long it takes to run feature_engineering_house
+    - aggregates multiple user defined functions to create dataframe for ensemble method modeling.
+    - it also prints out how long it takes to run
     - processes google quickdraw raw data dataframe
     - after this processing, dataframe contains 404 features
     - the output of this function will be used for ensemble method modeling.
@@ -28,6 +28,7 @@ def feature_engineering_ensemble(df,category,sample=60000,purpose='word',\
     input:
     - df = dataframe that was converted from raw_data json file
     - category = used to name output pickle file
+    - sample = number of datapoints included in the final dataframe. (Used only when purpose = 'word')  
     - purpose = 'word' or 'country'. prepares data for different purposes.
         'word' for image recognition, 'country' for country prediction
     - countries = list of country code used in country prediction
@@ -37,16 +38,21 @@ def feature_engineering_ensemble(df,category,sample=60000,purpose='word',\
     filename: "./data/MY_feature_{}.pkl".format(category)
     '''
     start_time = time.time()
+    #runs feature_eng_pt1 through pt5.
     df_test1 = feature_eng_pt1(df)
     df_test2 = feature_eng_pt2(df_test1)
     df_test3 = feature_eng_pt3(df_test2)
     df_subset = feature_eng_pt4(df_test3)
     df_subset2 = feature_eng_pt5(df_test3)
     df_final = pd.concat([df_test3,df_subset,df_subset2], axis=1)
+    
+    # prepares final dataframe
+    #If purpose = 'word' it will randomly select 'sample' number of datapoints from df_final
     if purpose == 'word':
         df_final.index = xrange(len(df_final))
         random_ind = np.random.choice(list(df_final.index), sample, replace=False)
         df_final = df_final.loc[list(random_ind)]
+    #if purpose = 'country', it will correct all datapoints from the selected countries.
     elif purpose == 'country':
         df_final = df_final[(df_final['countrycode']==countries[0])|\
                 (df_final['countrycode']==countries[1])|\
@@ -56,18 +62,19 @@ def feature_engineering_ensemble(df,category,sample=60000,purpose='word',\
     print("--- %s seconds ---" % (time.time() - start_time))
 
 
-def feature_engineering_CNN(df,category,sample,purpose='word',countries = ['US','BR','RU','KR']):
+def feature_engineering_CNN(df,category,sample=60000,purpose='word',countries = ['US','BR','RU','KR']):
     '''
     function:
-    - aggregates 2 functions that prepares dataframe for CNN modeling.
-    - it also prints out how long it takes to run feature_engineering_house
+    - aggregates 2 user defined functions that prepares dataframe for CNN modeling.
+    - it also prints out how long it takes to run.
 
     input:
     - df = dataframe that was converted from raw_data json file
     - category = used to name output pickle file
+    - sample = number of datapoints included in the final dataframe. (Used only when purpose = 'word') 
     - purpose = 'word' or 'country'. prepares data for different purposes.
         'word' for image recognition, 'country' for country prediction
-    - countries = list of country code used in country prediction
+    - countries = list of country codes used in country prediction
 
     output:
     - pickled dataframe that will be used for CNN modeling (1176 features)
@@ -76,12 +83,15 @@ def feature_engineering_CNN(df,category,sample,purpose='word',countries = ['US',
     '''
 
     start_time = time.time()
+    #runs CNN feature engineering functions
     df_1 = CNN_feat_eng_pt1(df)
     df_2 = CNN_feat_eng_pt2(df_1)
+    #If purpose = 'word' it will randomly select 'sample' number of datapoints from df_final
     if purpose == 'word':
         df_2.index = xrange(len(df_2))
         random_ind = np.random.choice(list(df_2.index), sample, replace=False)
         df_2 = df_2.loc[list(random_ind)]
+    #If purpose = 'country', it will correct all datapoints from the selected countries.
     elif purpose == 'country':
         df_2 = df_2[(df_2['countrycode']==countries[0])|(df_2['countrycode']==countries[1])|\
                (df_2['countrycode']==countries[2])|(df_2['countrycode']==countries[3])]
@@ -107,15 +117,22 @@ def feature_eng_pt1(df_cf):
       in this function.
 
     - create following features:
-      stroke_number = total stroke number of a image [int]
-      final time = last data points of the time list [int]
+      stroke_number = total stroke number of an image [int]
+      final time = time of the last datapoints for an image (how long it took user to draw) [int]
       recognized = changed True/False response to boolean
                               (1 is true, 0 is false)[int]
 
     - Filtering applied:
-      1: filtered out data where recognize == 0
+      1: filtered out data where recognize == 0. 
+          Having unrecognized images in the dataset may reduce prediction accuracy
       2: filtered out data where stroke_number is greater than 15
+          After analysis, most pics were drawn under 15 strokes. 
+          I'm suspecting that if stroke numbers are above 20 or 30, users might be using a graphic tablet. 
+          In this project, I tried to exclude those images above 15 strokes.
+          So that I keep all images that are drawn in the similar environment.
       3: filtered out data where final time is greater than 20000
+          I do not know how this happens but some images have time values that are more than 20000.
+          The quickdraw ask users to draw in 20sec so I am a bit puzzled how these users draw for more than 20000ms.
 
     input:
     df = dataframe created from Google quickdraw raw data json file
@@ -150,27 +167,25 @@ def feature_eng_pt2(df_cf):
       in this function.
 
     - create following features:
-      total_number_of_datapoints = total number of datapoints
-                                                        exist in an image [int]
+      total_number_of_datapoints = total number of datapoints exist in an image [int]
       X = normalized X Ranges between 0 to 1 [list]
       Y = Y values normalized using X. Ranges between 0 and 1.5 [list]
       Ymax = maximum value of Y [int]
       time = list of time [list]
-        * note: X,Y,time should have same length.
+        * note: X,Y,time should have the same length for each row.
 
       total_time_of_stroke = time spent on each stroke [list]
-      dp_per_stroke = number of data points per stroke [list]
+      dp_per_stroke = number of datapoints exist within each stroke [list]
       dp_percent_per_stroke = data points in a stroke / total data points
                                 of a drawing. displayed as percentage [list]
-      stroke_with_max_time = index of stroke that user spent most time
-                            drawing [int]
-      stroke_with_min_time = index of stroke that user spent least time
-                            drawing [int]
+                                (this feature represents how much of drawing was done in each stroke)
+      stroke_with_max_time = index of stroke that user spent most time drawing [int]
+      stroke_with_min_time = index of stroke that user spent least time drawing [int]
       std_of_time = standard deviation of time [float]
-      ave_datapoints_per_stroke = average number of data points
-                                                in a stroke [float]
-      total_time_drawing = total amount of time when user was drawing [int]
-      ave_time_per_stroke = average time spent in a stroke [float]
+      ave_datapoints_per_stroke = average number of data points per stroke [float]
+      total_time_drawing = total amount of time that user spent on drawing[int]
+                        (total time - (time user spent between strokes)) 
+      ave_time_per_stroke = average time spent per stroke [float]
       stroke_with_max_dp = index of stroke that contains most data points [int]
       stroke_with_min_dp = index of stroke that contains least data points [int]
       X_per_stroke = X separated by strokes
@@ -180,7 +195,7 @@ def feature_eng_pt2(df_cf):
 
     - Filtering applied:
       1: filtered out data where Ymax is greater than 1.5
-         need this filter to maintain 2:3 X:Y ratio of all image.
+         need this filter to maintain 2:3 X:Y ratio of all images.
 
     input:
     df_cf = output dataframe from feature_eng_pt1.
@@ -193,6 +208,9 @@ def feature_eng_pt2(df_cf):
     # 1. make a list or int from existing features
     # 2. store contents of 1. in a new dictionary
     # 3. make new column in your dataframe with 2. dictionary
+    
+    #note: I figure there have to be a easier/simpler way to make these new features...
+    #however, I do need to access a column that is a nested list. This complicates my situation.
 
     X = {}
     Y = {}
@@ -222,9 +240,10 @@ def feature_eng_pt2(df_cf):
         # calculate the difference between final and initial time of a stroke
         Tdifftemp = [(df_cf.loc[i,'drawing'][stroke][2][-1] - df_cf.loc[i,'drawing'][stroke][2][0])\
                      for stroke in xrange(num)]
-        # calculate the lengh of the stroke list
+        # calculate the length of the stroke list
         dpps_temp = [len(df_cf.loc[i,'drawing'][stroke][2]) for stroke in xrange(num)]
 
+        #store all X(or Y or time) info of an image into a list
         Xtemp = [item for stroke in Xt for item in stroke]
         Ytemp = [item for stroke in Yt for item in stroke]
         time[i] = [item for stroke in tt for item in stroke]
@@ -233,26 +252,42 @@ def feature_eng_pt2(df_cf):
         Xmintemp = np.min(Xtemp)-1
         Xmaxtemp = np.max(Xtemp)+1
         Ymintemp = np.min(Ytemp)-1
+        #runs user defined function array_normalizer to normalize
         Xnorm = _array_normalizer(Xtemp, Xmintemp,Xmaxtemp,Xmintemp)
         Ynorm = _array_normalizer(Ytemp, Xmintemp,Xmaxtemp,Ymintemp)
         Ymax[i] = np.max(Ynorm)
         X[i] = Xnorm
         Y[i] = Ynorm
+        #store X,Y and time info from each stroke as a list
         Xperst[i] = [list(_array_normalizer(Xt[stroke],Xmintemp,Xmaxtemp,Xmintemp)) for stroke in xrange(len(Xt))]
         Yperst[i] = [list(_array_normalizer(Yt[stroke],Xmintemp,Xmaxtemp,Ymintemp)) for stroke in xrange(len(Yt))]
         tperst[i] = [tt[stroke] for stroke in xrange(len(tt))]
-
+        
+        #total number of datapoints 
         ttnum_dp[i] = len(Xnorm)
+        
+        #store time spent on each stroke
         Tdiff[i] = Tdifftemp
+        #store index of stroke that user spent most time
         Tdiffmax[i] = np.argmax(Tdifftemp)
+        #store index of stroke that user spent least time
         Tdiffmin[i] = np.argmin(Tdifftemp)
+        #time standard deviation for each stroke
         Tdiffstd[i] = np.std(Tdifftemp)
+        
+        #number of datapoints for each stroke
         dpps[i] = dpps_temp
+        #number of datapoints stored as a percentage
         dppps[i] = np.array(dpps_temp)/float(len(Xtemp))
+        #stroke with maximum number of datapoints
         dp_max[i] = np.argmax(dpps_temp)
+        #stroke with minimum number of datapoints
         dp_min[i] = np.argmin(dpps_temp)
+        #std. of datapoints per stroke
         dp_std[i] = np.std(dpps_temp)
+        #total time spent on drawing
         sumtimeps[i] = sum(Tdifftemp)
+        
     # create new features
     df_cf['total_number_of_datapoints'] = pd.Series(ttnum_dp)
     df_cf['X'] = pd.Series(X)
@@ -293,8 +328,11 @@ def feature_eng_pt3(df_cf):
 
     output:
       dataframe with above features and filter
-    '''
 
+    the way I approached this is by finding the first and last x,y locations for each stroke and
+    I then calculated delta x (dx) and delta y (dy).
+    from there, I just calculated the direction of the stroke in radian using my user defined function "_radian_direction"
+    '''
     direction = {}
     for index in df_cf.index:
         dx = [float(df_cf.drawing[index][stroke][1][-1] - df_cf.drawing[index][stroke][1][0]) \
@@ -321,9 +359,15 @@ def feature_eng_pt4(df_cf):
     - Create following features:
       datapoint_percentage_stroke'i' = # of data points in stroke i divide by
                             total number of data points of an image. [float]
+            * do not confuse with dp_percent_per_stroke column I previously made.
+            dp_percent_per_stroke is a list. datapoint_percentage_stroke'i' is a float!
+            
       direction_stroke'i' = direction of stroke 'i' [float]
+      
       time_stroke'i' = total time spent on stroke'i' [int]
+      
       datapoints_stroke'i' = number of data points in stroke i [int]
+      
       switch_stroke'i' = boolean indicates whether stroke'i' exist in an image
                             0: stroke exist 1: stroke does not exist [int]
 
