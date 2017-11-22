@@ -258,6 +258,8 @@ all features on this list had above 1% feature importance
 - work on XGboost model with more pictures and countries.  
   * test XGboost results with countries with similar cultural backgrounds, same languages and geographic locations.  
     - What would the result look like if I run country prediction with US, UK, AU, NZ? or South American countries?  
+- dimensionality reduction for ensemble method models. determine useless features and delete them.  
+  * If I can run an analysis on feature importance for different datasets, I may reduce computation time by not feature engineer features that are not important.  
 - Organize and write cleaner code.  
   * accessing into images stored as a "list of lists of lists" is really painful. Since I need to create new features from the contents of this nested list, I would like to find a way to compute solution faster and codes that are a bit cleaner?  
 - I wonder what would happen if I add one more convolution layers and pooling layers after my first pooling layer.  
